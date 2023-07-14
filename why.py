@@ -2,11 +2,11 @@
 Slides asking why???
 """
 
-from mplslide import new_slide
+import matplotlib.pyplot as plt
 
 
 def why():
-    fig = new_slide()
+    fig = plt.figure()
 
     fig.text(0.5, 0.5, '🤔 WHY??? 🤔', horizontalalignment='center', fontsize=80)
 
@@ -14,7 +14,7 @@ def why():
 
 
 def why_not():
-    fig = new_slide()
+    fig = plt.figure()
 
     fig.text(0.5, 0.5, 'Why Not?', horizontalalignment='center')
 

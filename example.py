@@ -13,11 +13,11 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
 from title import create_icon_axes
-from mplslide import new_slide, slide_heading
+from mplslide import slide_heading
 
 
 def logo():
-    fig = new_slide(plain=True)
+    fig = plt.figure()
     slide_heading(fig, 'Example: Logo')
 
     create_icon_axes(fig, (0.05, 0.05, 0.9, 0.7),
@@ -34,7 +34,7 @@ def timeline(mpl_path):
     mpl_path : str or pathlib.Path
         Path to the Matplotlib checkout used to find release tags and dates.
     """
-    fig = new_slide()
+    fig = plt.figure()
 
     slide_heading(fig, 'Example: Release History')
 
@@ -91,7 +91,7 @@ def timeline(mpl_path):
 
 
 def section_text():
-    fig = new_slide()
+    fig = plt.figure()
     slide_heading(fig, 'Examples')
 
     fig.text(0.05, 0.7, 'Both are examples from Matplotlib gallery')

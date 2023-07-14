@@ -6,13 +6,13 @@ file is based on `examples/misc/logos2.py` in the Matplotlib repository.
 """
 
 import numpy as np
-import matplotlib.pyplot as plt
 import matplotlib.cm as cm
+from matplotlib import pyplot as plt
 from matplotlib.patches import Rectangle, PathPatch
 from matplotlib.textpath import TextPath
 from matplotlib.transforms import Affine2D
 
-from mplslide import MPL_BLUE, LOGO_FONT, new_slide
+from mplslide import MPL_BLUE, LOGO_FONT
 
 
 def create_icon_axes(fig, ax_position, lw_bars, lw_grid, lw_border, rgrid):
@@ -91,7 +91,7 @@ def slides():
     """
     Create the title slide.
     """
-    fig = new_slide(plain=True)
+    fig = plt.figure()
 
     create_text_axes(fig, 110)
     ax_pos = (0.535, 0.52, 0.17, 0.28)

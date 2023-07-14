@@ -2,18 +2,16 @@
 Slides showing minimal setup for slides.
 """
 
-import matplotlib.pyplot as plt
-from matplotlib import cbook
+from matplotlib import cbook, pyplot as plt
 import numpy as np
 
-from mplslide import new_slide, slide_heading
-
+from mplslide import slide_heading
 
 CODE = dict(font='monospace', fontsize=48, verticalalignment='top')
 
 
 def page1():
-    fig = new_slide()
+    fig = plt.figure()
     slide_heading(fig, 'Slide setup')
 
     fig.text(0.05, 0.75, 'Set a big figure (1080p):')
@@ -28,7 +26,7 @@ plt.rcParams["figure.dpi"] = 100
 
 
 def page2():
-    fig = new_slide()
+    fig = plt.figure()
     slide_heading(fig, 'Slide setup')
 
     fig.text(0.05, 0.75, 'Set a nice font:')
@@ -47,7 +45,7 @@ plt.rcParams['text.color'] = 'tab:grey'
 
 
 def page3():
-    fig = new_slide()
+    fig = plt.figure()
     slide_heading(fig, 'Slide setup')
 
     fig.text(0.05, 0.75, 'Set better Axes sizes:')
@@ -68,7 +66,7 @@ plt.rcParams['lines.linewidth'] = 3
 
 
 def page4():
-    fig = new_slide()
+    fig = plt.figure()
     slide_heading(fig, 'Save the slides')
 
     fig.text(0.05, 0.8, """\
@@ -87,7 +85,7 @@ with PdfPages('name.pdf') as pdf:
 
 
 def page5():
-    fig = new_slide()
+    fig = plt.figure()
     slide_heading(fig, 'Add a slide title')
 
     fig.text(0.05, 0.8, '''\
@@ -106,7 +104,7 @@ def slide_heading(fig, text):
 
 
 def page6():
-    fig = new_slide()
+    fig = plt.figure()
     slide_heading(fig, 'Add a plot')
 
     fig.text(0.05, 0.8, '''\
@@ -123,7 +121,7 @@ ax.plot(np.sin(np.linspace(0, 5*np.pi, 100)))
 
 
 def page7():
-    fig = new_slide()
+    fig = plt.figure()
     slide_heading(fig, 'Write some text')
 
     fig.text(0.05, 0.75, 'Here is some explanatory text')
@@ -137,7 +135,7 @@ fig.text(0.05, 0.75,
 
 
 def page8():
-    fig = new_slide()
+    fig = plt.figure()
     slide_heading(fig, 'Add an image')
 
     fig.text(0.05, 0.8, '''\

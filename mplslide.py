@@ -90,21 +90,6 @@ def configure_slides():
     plt.rcParams['lines.linewidth'] = 3
 
 
-def new_slide(plain=False, **kwargs):
-    """
-    Create a new slide.
-
-    Parameters
-    ----------
-    plain : bool, default: False
-        Whether to leave out any slide decorations (e.g., logo).
-    """
-
-    fig = plt.figure(figsize=FIGSIZE, dpi=DPI, **kwargs)
-    fig.mplslide_props = {'plain': plain}
-    return fig
-
-
 def slide_heading(fig, text):
     """
     Add a heading to a slide, using a common style.
@@ -118,41 +103,3 @@ def slide_heading(fig, text):
     """
 
     fig.text(0.05, 0.85, text, color='tab:blue', fontproperties=FONT, fontsize=72)
-
-
-def slide_subfig_heading(subfig, text):
-    """
-    Add a heading to a slide in a subfigure, using a common style.
-
-    Parameters
-    ----------
-    subfig : matplotlib.figure.SubFigure
-        The slide subfigure, usually from the top a Figure.
-    text : str
-        The text to place in the heading.
-    """
-
-    subfig.text(0.05, 0.5, text, color='tab:blue',
-                fontproperties=FONT, fontsize=72, verticalalignment='center')
-
-
-def annotate_pr_author(fig, *authors, pr=None):
-    """
-    Annotate the Pull Request author(s) on the bottom-right corner of a slide.
-
-    Parameters
-    ----------
-    fig : matplotlib.figure.Figure
-        The slide figure.
-    authors : list of str
-        The GitHub usernames to use for the annotation.
-    pr : int, optional
-        The PR number on GitHub to link to.
-    """
-
-    text = 'PR by ' + ', '.join(f'@{author}' for author in authors)
-    t = fig.text(0.95, 0.05, text,
-                 fontproperties=FONT, fontsize=32, alpha=0.7,
-                 horizontalalignment='right')
-    if pr is not None:
-        t.set_url(f'https://github.com/matplotlib/matplotlib/pull/{pr}')

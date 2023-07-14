@@ -2,22 +2,22 @@
 End slides.
 """
 
-from mplslide import new_slide
+import matplotlib.pyplot as plt
 
 
 def slides():
     """
     Create end slides.
     """
-    fig1 = new_slide()
+    fig1 = plt.figure()
     fig1.text(0.5, 0.5, "🎉 And that's all we need! 🎉",
               horizontalalignment='center')
 
-    fig2 = new_slide()
+    fig2 = plt.figure()
     fig2.text(0.5, 0.5, 'Was that a good idea?',
               horizontalalignment='center')
 
-    fig3 = new_slide()
+    fig3 = plt.figure()
     fig3.text(0.5, 0.5, 'Demo',
               horizontalalignment='center')
     demo_url = 'https://github.com/QuLogic/scipy2023-lightning-mpl-slides'

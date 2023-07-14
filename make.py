@@ -33,7 +33,6 @@ METADATA = {
 MPL_PATH = sys.argv[1]
 PAGES = [
     # Tuple of function + any arguments.
-    (title_slides, ),
     (example_slides, MPL_PATH, ),
     (why_slides, ),
     (general_slides, ),
@@ -42,14 +41,18 @@ PAGES = [
 
 configure_slides()
 with PdfPages('slides.pdf', metadata=METADATA) as pdf:
+    # The title page shouldn't have the logo repeated in the top-right corner, so do it
+    # first separately.
+    title_page = title_slides()
+    pdf.savefig(title_page)
+
     for page, *args in PAGES:
         figs = page(*args)
         if not isinstance(figs, (tuple, list)):
             figs = (figs, )
         for fig in figs:
-            if not fig.mplslide_props['plain']:
-                create_icon_axes(fig, (0.825, 0.825, 0.2, 0.15),
-                                 0.3, 0.3, 0.3, [5])
+            create_icon_axes(fig, (0.825, 0.825, 0.2, 0.15),
+                             0.3, 0.3, 0.3, [5])
             pdf.savefig(fig)
 
 # Linearize the PDF if qpdf is available.

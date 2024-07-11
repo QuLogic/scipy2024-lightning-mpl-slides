@@ -114,7 +114,7 @@ ax.plot(np.sin(np.linspace(0, 5*np.pi, 100)))
 ''',
              **CODE)
 
-    ax = fig.add_subplot([0.1, 0.1, 0.8, 0.5])
+    ax = fig.add_subplot([0.1, 0.1, 0.8, 0.48])
     ax.plot(np.sin(np.linspace(0, 5*np.pi, 100)))
 
     return fig

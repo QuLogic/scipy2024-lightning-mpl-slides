@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
 from title import create_icon_axes
-from mplslide import slide_heading
+from mplslide import add_qrcode, slide_heading
 
 
 def logo():
@@ -129,8 +129,9 @@ def section_text():
         'https://matplotlib.org/stable/gallery/misc/logos2.html',
         'https://matplotlib.org/stable/gallery/lines_bars_and_markers/timeline.html',
     ]):
-        t = fig.text(0.05, 0.5 - 0.15*i, link, fontsize=40)
+        t = fig.text(0.05, 0.6 - 0.3*i, link, fontsize=40)
         t.set_url(link)
+        add_qrcode(fig, link, [0.7, 0.35 - 0.35*i, 0.3, 0.3])
 
     return fig
 

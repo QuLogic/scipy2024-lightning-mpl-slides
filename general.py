@@ -33,7 +33,7 @@ def page2():
     fig.text(0.05, 0.7, """\
 plt.rcParams['font.family'] = [
     'Carlito',
-    'Segoe UI Emoji',
+    'OpenMoji Black',
 ]
 plt.rcParams['font.weight'] = 'bold'
 plt.rcParams['font.size'] = 64

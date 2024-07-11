@@ -2,6 +2,7 @@
 Common functions for working with slides.
 """
 
+import pathlib
 import sys
 
 import matplotlib.pyplot as plt
@@ -32,6 +33,10 @@ def check_requirements():
 
     if len(sys.argv) < 2:
         sys.exit('Usage: %s <matplotlib-path>' % (sys.argv[0], ))
+    fonts = pathlib.Path('fonts')
+    if fonts.is_dir():
+        for font in fonts.glob('*.ttf'):
+            matplotlib.font_manager.fontManager.addfont(font)
     # The original font is Calibri, if that is not installed, we fall back
     # to Carlito, which is metrically equivalent.
     calibri = carlito = None
@@ -72,7 +77,7 @@ def configure_slides():
     plt.rcParams['figure.figsize'] = FIGSIZE
     plt.rcParams['figure.dpi'] = DPI
 
-    plt.rcParams['font.family'] = [*FONT.get_family(), 'Segoe UI Emoji']
+    plt.rcParams['font.family'] = [*FONT.get_family(), 'OpenMoji Black']
     plt.rcParams['font.weight'] = FONT.get_weight()
     plt.rcParams['font.size'] = 64
     plt.rcParams['text.color'] = 'tab:grey'

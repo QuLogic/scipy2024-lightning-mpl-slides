@@ -15,7 +15,7 @@ Requirements
 * Matplotlib >= 3.6.0
 * A git checkout of the `matplotlib` source code, to produce the timeline
 * The Carlito font
-* The Segoi UI Emoji font
+* The OpenMoji Black font
 
 Optionally, you may also make available:
 

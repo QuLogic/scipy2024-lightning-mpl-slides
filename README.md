@@ -1,11 +1,11 @@
-Plotting Slides in Matplotlib — SciPy 2023 Lightning Talk
+Plotting Slides in Matplotlib — SciPy 2024 Lightning Talk
 =========================================================
 
 This repository contains code to create the presentation for the "Plotting Slides in
-Matplotlib" lightning talk at SciPy 2023.
+Matplotlib" lightning talk at SciPy 2024.
 
 If you want to view the resulting PDF directly, you can [find a generated copy in the
-release](https://github.com/QuLogic/scipy2023-lightning-mpl-slides).
+release](https://github.com/QuLogic/scipy2024-lightning-mpl-slides).
 
 Requirements
 ------------
@@ -32,7 +32,7 @@ $ ./make.py /path/to/matplotlib/checkout
 ```
 
 which will produce `slides.pdf` directly from Matplotlib and
-`scipy2023-lightning-mpl-slides.pdf` as either a copy or a linearized version, depending
+`scipy2024-lightning-mpl-slides.pdf` as either a copy or a linearized version, depending
 on whether `qpdf` is installed.
 
 Overview

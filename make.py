@@ -28,7 +28,7 @@ from end import slides as end_slides
 
 METADATA = {
     'Author': 'Elliott Sales de Andrade',
-    'Title': 'Slides in Matplotlib — SciPy 2023',
+    'Title': 'Slides in Matplotlib — SciPy 2024',
 }
 MPL_PATH = sys.argv[1]
 PAGES = [
@@ -58,6 +58,6 @@ with PdfPages('slides.pdf', metadata=METADATA) as pdf:
 # Linearize the PDF if qpdf is available.
 if shutil.which('qpdf') is not None:
     subprocess.run(['qpdf', 'slides.pdf', '--object-streams=generate',
-                    '--linearize', 'scipy2023-lightning-mpl-slide.pdf'])
+                    '--linearize', 'scipy2024-lightning-mpl-slide.pdf'])
 else:
-    shutil.copy('slides.pdf', 'scipy2023-lightning-mpl-slide.pdf')
+    shutil.copy('slides.pdf', 'scipy2024-lightning-mpl-slide.pdf')

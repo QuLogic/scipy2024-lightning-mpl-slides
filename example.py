@@ -42,44 +42,73 @@ def timeline(mpl_path):
                            '--format=%(refname:strip=2) %(creatordate:short)'],
                           cwd=mpl_path, capture_output=True, text=True)
     dates = []
-    names = []
+    releases = []
     for item in tags.stdout.splitlines():
         tag_name, date = item.split(' ', 1)
         if 'rc' not in tag_name and 'b' not in tag_name:
             dates.append(datetime.fromisoformat(date))
-            names.append(tag_name)
+            releases.append(tag_name.lstrip('v'))
+    releases = [
+        tuple(release.split('.'))  # Split into components.
+        for release in releases
+    ]
+    dates, releases = zip(*sorted(zip(dates, releases)))  # Sort by increasing date.
 
-    levels = np.tile([-5, 5, -3, 3, -1, 1],
-                     int(np.ceil(len(dates) / 6)))[:len(dates)]
+    def is_feature(release):
+        return release[-1] == '0'
+
+    # Choose some nice levels: alternate meso releases between top and bottom, and
+    # progressively shorten the stems for micro releases.
+    levels = []
+    major_meso_releases = sorted({release[:2] for release in releases})
+    for release in releases:
+        major_meso = release[:2]
+        micro = int(release[2])
+        h = 1 + 0.8 * (5 - micro)
+        level = h if major_meso_releases.index(major_meso) % 2 == 0 else -h
+        levels.append(level)
 
     ax = fig.add_axes((0.05, 0.11, 0.9, 0.7))
 
-    ax.vlines(dates, 0, levels, color="tab:red", linewidth=3)
-    ax.plot(dates, np.zeros_like(dates), "-o",
-            color="k", markerfacecolor="w", linewidth=3, markersize=10)
+    # The vertical stems.
+    ax.vlines(dates, 0, levels, linewidth=3,
+              color=[('tab:red', 1 if is_feature(release) else .5)
+                     for release in releases])
+    # The baseline.
+    ax.axhline(0, color="black", linewidth=3)
+    # The markers on the baseline.
+    meso_dates = [date for date, release in zip(dates, releases)
+                  if is_feature(release)]
+    micro_dates = [date for date, release in zip(dates, releases)
+                   if not is_feature(release)]
+    ax.plot(micro_dates, np.zeros_like(micro_dates), 'ko',
+            markerfacecolor='white', markersize=10)
+    ax.plot(meso_dates, np.zeros_like(meso_dates), 'ko',
+            markerfacecolor='tab:red', markersize=10)
 
-    # Annotate lines.
-    for d, l, r in zip(dates, levels, names):
-        ax.annotate(r, xy=(d, l),
-                    xytext=(-3, np.sign(l)*3), textcoords="offset points",
-                    horizontalalignment="right",
-                    verticalalignment="bottom" if l > 0 else "top",
-                    fontsize=24)
+    # Annotate the lines.
+    for date, level, release in zip(dates, levels, releases):
+        version_str = '.'.join(release)
+        ax.annotate(version_str, xy=(date, level),
+                    xytext=(-3, np.sign(level)*3), textcoords="offset points",
+                    verticalalignment="bottom" if level > 0 else "top",
+                    fontsize=24,
+                    weight='bold' if is_feature(release) else 'normal',
+                    bbox=dict(boxstyle='round', pad=0.1, lw=0, fc=(1, 1, 1, 0.7)))
 
-    # Format xaxis with 4 month intervals.
-    ax.get_xaxis().set_major_locator(mdates.MonthLocator(interval=4))
-    ax.get_xaxis().set_major_formatter(mdates.DateFormatter("%b %Y"))
-    plt.setp(ax.get_xticklabels(), rotation=30, ha="right", fontsize=24)
+    # Format xaxis with yearly intervals.
+    ax.xaxis.set(major_locator=mdates.YearLocator(),
+                 major_formatter=mdates.DateFormatter("%Y"))
+    plt.setp(ax.get_xticklabels(), fontsize=24)
 
-    # Remove y axis and spines.
-    ax.get_yaxis().set_visible(False)
-    for spine in ["left", "top", "right"]:
-        ax.spines[spine].set_visible(False)
+    # Remove the y-axis and some spines.
+    ax.yaxis.set_visible(False)
+    ax.spines[["left", "top", "right"]].set_visible(False)
 
     ax.margins(y=0.1)
 
-    this_scipy = datetime(2023, 7, 12)
-    last_scipy = datetime(2022, 7, 13)
+    this_scipy = datetime(2024, 7, 10)
+    last_scipy = datetime(2023, 7, 12)
 
     # Annotate range between last SciPy and this SciPy.
     ax.axvspan(last_scipy, this_scipy, alpha=0.5)
